@@ -40,23 +40,13 @@ sap.ui.define([
 		
 		addItem: function(sTitle, sDescription, mParams) {
 			var mData = {
-				    title		: sTitle,
-				    description	: sDescription,
-				    done		: false
-				};
-			var that = this;
-			FireStore.collection("todo").add(mData).then(function(docRef) {
-				mData.id = docRef.id;
-				that.setProperty(`/${mData.id }`, mData);
-				if (typeof mParams === "object" && "success" in mParams && typeof mParams.success === "function") {
-					mParams.success(mData);
-				}
-			}).catch(function(error) {
-				if (typeof mParams === "object" && "error" in mParams && typeof mParams.success === "error") {
-				   mParams.error(error);
-				}
-			});
-
+				id			: Date.now().toString(),
+			    title		: sTitle,
+			    description	: sDescription,
+			    done		: false
+			};
+			this.setProperty(`/${mData.id }`, mData);
+			FireStore.collection("todo").doc(mData.id).set(mData);
 		},
 		
 		deleteItem: function(sId, mParams) {

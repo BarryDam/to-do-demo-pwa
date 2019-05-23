@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"../model/firestore-todo",
-	"../utils/FragmentDialog"
-], function (Controller, firestoreTodo, FragmentDialog) {
+	"../utils/FragmentDialog",
+	"../model/firestore"
+], function (Controller, firestoreTodo, FragmentDialog, firestore) {
 	"use strict";
 
 	return Controller.extend("nl.newitera.to-do-demo-pwa.controller.ToDoList", {
@@ -22,8 +23,6 @@ sap.ui.define([
 		    firestoreTodo.setSelected(selectedId, bSelected);
 		},
 		
-	
-		
 		addTask: {
 			_dialog: null,
 			openDialog: function() {
@@ -37,9 +36,11 @@ sap.ui.define([
 			    		onAdd: function() {
 			    			var m = that.addTask._dialog.getDialogData();
 			    			that.addTask._dialog.setBusy(true);
+			    			that.addTask._dialog.close();
 			    			firestoreTodo.addItem(m.title, m.description, {
 			    				success: function(){
-			    					that.addTask._dialog.close();
+			    					console.log("go");
+			    					//hat.addTask._dialog.close();
 			    				}
 			    			});
 			    		}
@@ -47,6 +48,17 @@ sap.ui.define([
 			    	i18nModel: this.getOwnerComponent().getModel("i18n")
 			    });
 			}
+		},
+		
+		onNetwork: function(e) {
+			var sCurrent	= e.getSource().getText(),
+				sNew		= (sCurrent === "offline" ) ? "online" : "offline";
+			if (sCurrent === "offline") {
+				firestore.disableNetwork();
+			} else {
+				firestore.enableNetwork();
+			}
+			e.getSource().setText(sNew);
 		}
 	});
 });
