@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"nl/newitera/to-do-demo-pwa/model/models"
-], function (UIComponent, Device, models) {
+	"nl/newitera/to-do-demo-pwa/model/models",
+	"./model/firestore-todo"
+], function (UIComponent, Device, models, firestoreTodo) {
 	"use strict";
 
 	return UIComponent.extend("nl.newitera.to-do-demo-pwa.Component", {
@@ -17,7 +18,7 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function () {
-			// call the base component"s init function
+			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// enable routing
@@ -25,6 +26,8 @@ sap.ui.define([
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+			
+			this.setModel(firestoreTodo, "todo");
 		}
 	});
 });

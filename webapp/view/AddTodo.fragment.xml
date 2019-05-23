@@ -1,0 +1,28 @@
+<core:FragmentDefinition 
+	xmlns="sap.m"
+		xmlns:core="sap.ui.core"
+	>
+	<Dialog 
+		contentWidth		= "1000px"
+		title				= "{i18n>toDoListAdd}" 
+		busyIndicatorDelay	= "0"
+		class				= "sapUiContentPadding"
+		>
+		<content>
+			<Label text="{i18n>TaskFormLabelTitle}"/>
+			<Input value="{Dialog>/title}"/>
+			<Label text="{i18n>TaskFormLabelDescription}"/>
+			<TextArea value="{Dialog>/description}" width="100%"/>
+		</content>
+		<buttons>
+			<Button 
+				text="Add"
+				press=".onAdd"
+				type="Accept"/>
+			<Button 
+				text="Close"
+				press=".onClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
+			

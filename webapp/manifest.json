@@ -51,14 +51,13 @@
 			"id": "ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.40.12"
 		},
-		"dataSources":{
-			"to-do":{
+		"dataSources": {
+			"to-do": {
 				"uri": "model/to-do-mock.json",
 				"type": "JSON"
 			}
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -75,7 +74,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -109,9 +107,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -123,19 +123,29 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteMain",
-				"pattern": "RouteMain",
-				"target": ["TargetMain"]
-			}, {
-				"name": "RouteList",
-				"pattern": "",
-				"target":["TargetList"]
-			}, {
-				"name": "RouteTask",
-				"pattern": "task/{id}",
-				"target": ["TargetTask"]
-			}],
+			"routes": [
+				{
+					"name": "RouteMain",
+					"pattern": "RouteMain",
+					"target": [
+						"TargetMain"
+					]
+				},
+				{
+					"name": "RouteList",
+					"pattern": "",
+					"target": [
+						"TargetList"
+					]
+				},
+				{
+					"name": "RouteTask",
+					"pattern": "task/{id}",
+					"target": [
+						"TargetTask"
+					]
+				}
+			],
 			"targets": {
 				"TargetMain": {
 					"viewType": "XML",
@@ -153,12 +163,16 @@
 				},
 				"TargetTask": {
 					"viewType": "XML",
-					"transition":"slide",
+					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewId": "ToDoTask",
 					"viewName": "ToDoTask"
 				}
 			}
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }

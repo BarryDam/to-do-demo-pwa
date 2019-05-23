@@ -1,18 +1,21 @@
 <mvc:View controllerName="nl.newitera.to-do-demo-pwa.controller.ToDoTask" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns="sap.m">
-	<Page title="{title}" showNavButton="true" navButtonPress="onBack">
+	<Page id="TodoTaskPage" title="{title}" showNavButton="true" navButtonPress="onBack" busyIndicatorDelay="0">
 		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="{i18n>toDoTaskFormTitle}">
 			<f:content>
 				<Label text="{i18n>TaskFormLabelTitle}" />
-				<Input value="{title}" />
+				<Input value="{todo>title}" change="onChangeTitle"/>
 				
 				<Label text="{i18n>TaskFormLabelDone}" />
-				<CheckBox selected="{done}" />
+				<CheckBox selected="{todo>done}" select="onCheckItem"/>
 				
 				<Label text="{i18n>TaskFormLabelDescription}" />
-				<TextArea value="{description}" />
+				<TextArea value="{todo>description}" change="onChangeDescription"/>
+				
+				<Label></Label>
+				<Button text="Save" press="onBack" visible="false"/>
+				<Button text="Delete" press="onDelete" type="Reject"/>
 			</f:content>
 			
 		</f:SimpleForm>
-		
 	</Page>
 </mvc:View>

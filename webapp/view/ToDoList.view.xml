@@ -1,14 +1,21 @@
 <mvc:View controllerName="nl.newitera.to-do-demo-pwa.controller.ToDoList" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
 	<Page title="{i18n>toDoListTitle}">
 		<content>
-			<List id="ToDoList" includeItemInSelection="false" items="{/ToDoThings}">
-				<CustomListItem>
+			<List id="ToDoList" includeItemInSelection="false" items="{todo>/}">
+				<CustomListItem type="Navigation" press="onPressTask">
 					<HBox alignItems="Center">
-						<CheckBox selected="{done}"/>
-						<ObjectIdentifier title="{title}" titleActive="true" titlePress="onPressTask"/>
+						<CheckBox selected="{todo>done}" select="onCheckItem"/>
+						<ObjectIdentifier title="{todo>title}" titleActive="true" titlePress="onPressTask"/>
 					</HBox>
 				</CustomListItem>
 			</List>
 		</content>
+		<footer>
+			<Bar>
+				<contentLeft>
+					<Button text="{i18n>toDoListAdd}" press=".addTask.openDialog" type="Emphasized"/>
+				</contentLeft>
+			</Bar>
+		</footer>
 	</Page>
 </mvc:View>
