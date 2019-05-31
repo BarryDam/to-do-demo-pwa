@@ -1,4 +1,4 @@
-var version = "0.0.6";
+var version = "0.0.9";
 
 var RESOURCES_TO_PRELOAD = [
 	"index.html",
@@ -47,13 +47,48 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('activate', function (event) {
+	console.log("activate");
 	event.waitUntil(
 		caches.keys().then(function (keyList) {
+			console.log(keyList);
 			return Promise.all(keyList.map(function (key) {
 				if (key !== CACHE_NAME) {
+					console.log("delete cache "+key);
 					return caches.delete(key);
 				}
 			}));
+		}).catch(function(oError) {
+			console.log(" Error while deleting cache" + oError);
 		})
 	);
+});
+
+self.addEventListener('fetch', function (event) {
+	event.respondWith(
+		caches.match(event.request).then(function (response) {
+			if (response) {
+				return response;
+			}
+
+			var requestCopy = event.request.clone();
+			return fetch(requestCopy).then(function (response) {
+				if (!response) {
+					return response;
+				}
+				if (response.status === 200 || response.type === ' opaque') {
+					if (!event.request.url.startsWith('chrome-extension://')) {
+						var responseCopy = response.clone();
+						caches.open(CACHE_NAME).then(function (cache) {
+							cache.put(event.request, responseCopy);
+						});
+					}
+				}
+				return response;
+			});
+		}).catch(function () {
+			var req = event.request;
+			return caches.match('/images/cancel.svg');
+		})
+	);
+
 });
