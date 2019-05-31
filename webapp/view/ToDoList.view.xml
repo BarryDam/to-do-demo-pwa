@@ -14,7 +14,7 @@
 			<Bar>
 				<contentLeft>
 					<Button text="{i18n>toDoListAdd}" press=".addTask.openDialog" type="Emphasized"/>
-					<Button text="offline" press="onNetwork"/>
+					<!--<Button text="offline" press="onNetwork"/>-->
 				</contentLeft>
 			</Bar>
 		</footer>
